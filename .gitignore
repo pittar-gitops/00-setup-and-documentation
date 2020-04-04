@@ -1,0 +1,2 @@
+overlays/nonprod/sealed-secrets-secret.yaml
+overlays/local/sealed-secrets-secret.yaml
