@@ -15,7 +15,7 @@ spec:
               export HOME=/tmp/approver
 
               echo "Approving Argo CD operator install.  Waiting a few seconds to make sure the InstallPlan gets created first."
-              sleep 20
+              sleep 10
               for subscription in `oc get subscription -n argocd -o name`
               do 
                 desiredcsv=$(oc get $subscription -n argocd -o jsonpath='{ .spec.startingCSV }')
