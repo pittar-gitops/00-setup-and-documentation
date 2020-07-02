@@ -6,6 +6,5 @@ bases:
 resources:
 - 00-cluster-config-proj.yaml
 - 01-sealed-secrets-app.yaml
-- 02-role-anyuid.yaml
-- sealed-secrets-namespace.yaml
+- 02-sealed-secrets-namespace.yaml
 - sealed-secrets-secret.yaml
