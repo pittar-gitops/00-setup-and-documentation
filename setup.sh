@@ -7,8 +7,8 @@ echo "Installing Argo CD Operator."
 
 oc apply -k argocd-operator/overlays/default
 
-echo "Pause 20 seconds for the creation and approval of the InstallPlan."
-sleep 20
+echo "Pause 30 seconds for the creation and approval of the InstallPlan."
+sleep 30
 
 oc rollout status deploy/argocd-operator -n argocd
 
@@ -22,7 +22,7 @@ oc apply -k argocd/overlays/default
 
 echo "Waiting for Argo CD server to start..."
 
-sleep 20
+sleep 30
 
 oc rollout status deploy/argocd-server -n argocd
 
