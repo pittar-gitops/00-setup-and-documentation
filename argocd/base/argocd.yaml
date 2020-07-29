@@ -60,7 +60,7 @@ spec:
       kinds:
       - PipelineRun
   rbac:
-    defaultPolicy: role:readonly
+    defaultPolicy: role:admin
     policy: |
       g, argocdadmins, role:admin
       g, argocdusers, role:readonly
