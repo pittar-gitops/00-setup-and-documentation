@@ -1,0 +1,15 @@
+apiVersion: v1
+items:
+- apiVersion: apps.open-cluster-management.io/v1
+  kind: PlacementRule
+  metadata:
+    name: gitops-argocd
+    namespace: argocd
+  spec:
+    clusterSelector:
+      matchLabels:
+        gitops-tooling: argocd
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

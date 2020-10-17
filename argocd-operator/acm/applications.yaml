@@ -1,0 +1,36 @@
+apiVersion: v1
+items:
+- apiVersion: app.k8s.io/v1beta1
+  kind: Application
+  metadata:
+    annotations:
+      apps.open-cluster-management.io/subscriptions: argocd/argocd-app
+    name: argocd-app
+    namespace: argocd
+  spec:
+    componentKinds:
+    - group: apps.open-cluster-management.io
+      kind: Subscription
+    descriptor: {}
+    selector:
+      matchLabels:
+        app: argocd-app
+- apiVersion: app.k8s.io/v1beta1
+  kind: Application
+  metadata:
+    annotations:
+      apps.open-cluster-management.io/subscriptions: argocd/argocd-operator
+    name: argocd-operator
+    namespace: argocd
+  spec:
+    componentKinds:
+    - group: apps.open-cluster-management.io
+      kind: Subscription
+    descriptor: {}
+    selector:
+      matchLabels:
+        app: argocd-operator
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""
