@@ -6,4 +6,4 @@ resources:
   - argocd-subscription.yaml
   - serviceaccount.yaml
   - rbac.yaml
-  - installplan-approver-job.yaml
+  #- installplan-approver-job.yaml
