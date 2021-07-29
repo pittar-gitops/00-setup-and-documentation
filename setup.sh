@@ -1,30 +1,33 @@
 #!/bin/bash
 
 LANG=C
-SLEEP_SECONDS=45
+SLEEP_SECONDS=15
 
 echo ""
-echo "Installing Argo CD Operator."
+echo "Installing OpenShift GitOps Operator."
 
-oc apply -k argocd-operator/overlays/default
-
-echo "Pause $SLEEP_SECONDS seconds for the creation and approval of the InstallPlan."
-sleep $SLEEP_SECONDS
-
-oc rollout status deploy/argocd-operator -n argocd
-
-echo "Listing Argo CD CRDs."
-oc get crd | grep argo
-
-
-echo "Deploying Argo CD instance"
-
-oc apply -k argocd/overlays/default
-
-echo "Waiting for Argo CD server to start..."
+oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-gitops-operator/overlays/stable-4.7
 
 sleep $SLEEP_SECONDS
 
-oc rollout status deploy/argocd-server -n argocd
+echo "Waiting for default Argo CD instance to complete rollout."
 
-echo "Argo CD ready!"
+oc rollout status deploy/openshift-gitops-server -n openshift-gitops
+
+echo "Patching default Argo CD instance to use an edge terminated route."
+
+oc patch argocd openshift-gitops \
+    -n openshift-gitops \
+    --type=merge \
+     -p='{"spec":{"server":{"insecure":true,"route":{"enabled":true,"tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}}}}'
+
+echo "Creating the default "sealed secrets" namespace and the default secret."
+
+oc apply -k sealed-secrets-namespace
+
+echo "Printing default admin Argo CD password:"
+
+oc get secret openshift-gitops-cluster \
+    -n openshift-gitops \
+    -o jsonpath='{.data.admin\.password}' | base64 -d
+

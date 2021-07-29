@@ -1,18 +1,37 @@
-# Argo CD Setup
+# OpenShift GitOps / Argo CD
 
-Install Argo CD Operator `0.0.14` from manifests.
+There are only a few things to do "manually" to seed your cluster to be bootstrapped using OpenShift GitOps (Argo CD).
 
-# Setup (Script)
+## Install the OpenShift GitOps Operator
 
-1. Login to your cluster with the `oc` cli with a user that has `cluster-admin` rights.
-2. Run `./setup.sh`
-3. Argo CD will be installed and integrated with OpenShift OAuth.
+You can install the OpenShift GitOps operator manually through the OpenShift UI, or, you can user `oc` or `kubectl` to install it:
 
-# Setup (Manual)
+```
+$ oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-gitops-operator/overlays/stable-4.7
+```
 
-If you don't want to use the script, again as `cluster-admin`:
-1. `oc apply -k argocd-operator/overlays/default`
-2. Wait for operator to complete installation.
-3. `oc apply -k argocd/overlays/default`
-4. Wait for Argo CD instance to deploy.  Done!
+*Optional:* If you would like an edge-terminated route for the default instance of Argo CD, run the following command:
+
+```
+$ oc patch argocd openshift-gitops \
+    -n openshift-gitops \
+    --type=merge\
+     -p='{"spec":{"server":{"insecure":true,"route":{"enabled":true,"tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}}}}'
+```
+
+And get the default admin user password:
+
+```
+$ oc get secret openshift-gitops-cluster \
+    -n openshift-gitops \
+    -o jsonpath='{.data.admin\.password}' | base64 -d
+```
+
+## Sealed Secrets
+
+In my clusters I use Bitnami Sealed Secrets to securely store Kubernetes `Secrets` in git.  Since my secrets are already encrypted in my repositories, I need to seed my cluster with the expected secret.  Of course, this can't be stored in git!  I have this known secret stored on my local machine, and I seed it into an empty cluster with:
+
+```
+$ oc apply -k sealed-secrets-namespace
+```
 

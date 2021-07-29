@@ -1,2 +1,2 @@
-bootstrap/sealed-secrets-secret.yaml
+sealed-secrets-namespace/sealed-secrets-secret.yaml
 .DS_Store
