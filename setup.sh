@@ -6,7 +6,7 @@ SLEEP_SECONDS=15
 echo ""
 echo "Installing OpenShift GitOps Operator."
 
-oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-gitops-operator/overlays/stable-4.7
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable
 
 sleep $SLEEP_SECONDS
 
