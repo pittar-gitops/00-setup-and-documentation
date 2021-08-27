@@ -15,8 +15,8 @@ $ oc apply -k https://github.com/redhat-canada-gitops/catalog/openshift-gitops-o
 ```
 $ oc patch argocd openshift-gitops \
     -n openshift-gitops \
-    --type=merge\
-     -p='{"spec":{"server":{"insecure":true,"route":{"enabled":true,"tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}}}}'
+    --type=merge \
+    -p='{"spec":{"server":{"insecure":true,"route":{"enabled":true,"tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}}}}'
 ```
 
 And get the default admin user password:
