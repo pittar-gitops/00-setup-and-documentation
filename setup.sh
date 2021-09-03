@@ -6,7 +6,7 @@ SLEEP_SECONDS=15
 echo ""
 echo "Installing OpenShift GitOps Operator."
 
-oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable?ref=main
 
 sleep $SLEEP_SECONDS
 
@@ -14,16 +14,11 @@ echo "Waiting for default Argo CD instance to complete rollout."
 
 oc rollout status deploy/openshift-gitops-server -n openshift-gitops
 
-echo "Patching default Argo CD instance to use an edge terminated route."
+echo "Patching default Argo CD instance to use an edge terminated route and resource customizations."
 
-oc patch argocd openshift-gitops \
-    -n openshift-gitops \
-    --type=merge \
-     -p='{"spec":{"server":{"insecure":true,"route":{"enabled":true,"tls":{"insecureEdgeTerminationPolicy":"Redirect","termination":"edge"}}}}}'
-
-echo "Creating the default "sealed secrets" namespace and the default secret."
-
-oc apply -k sealed-secrets-namespace
+oc patch argocd openshift-gitops -n openshift-gitops \
+    --type='merge' \
+    --patch "$(cat argocd-patch.yaml)"
 
 echo "Printing default admin Argo CD password:"
 
