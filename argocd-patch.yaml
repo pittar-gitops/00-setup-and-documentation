@@ -29,6 +29,10 @@ spec:
         hs.status = "Progressing"
         hs.message = "Waiting for sync status"
         return hs
+    integreatly.org/GrafanaDataSource:
+      ignoreDifferences: |
+        jsonPointers:
+        - /spec/datasources/0/secureJsonData/httpHeaderValue1
     build.openshift.io/BuildConfig:
       ignoreDifferences: |
         jsonPointers:

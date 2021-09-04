@@ -1,7 +1,7 @@
 #!/bin/bash
 
 LANG=C
-SLEEP_SECONDS=15
+SLEEP_SECONDS=60
 
 echo ""
 echo "Installing OpenShift GitOps Operator."
@@ -22,7 +22,7 @@ oc patch argocd openshift-gitops -n openshift-gitops \
 
 echo "Printing default admin Argo CD password:"
 
-oc get secret openshift-gitops-cluster \
+echo `oc get secret openshift-gitops-cluster \
     -n openshift-gitops \
-    -o jsonpath='{.data.admin\.password}' | base64 -d
+    -o jsonpath='{.data.admin\.password}' | base64 -d`
 
