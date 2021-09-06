@@ -32,11 +32,4 @@ oc get secret openshift-gitops-cluster \
     -o jsonpath='{.data.admin\.password}' | base64 -d
 ```
 
-## Sealed Secrets
-
-In my clusters I use Bitnami Sealed Secrets to securely store Kubernetes `Secrets` in git.  Since my secrets are already encrypted in my repositories, I need to seed my cluster with the expected secret.  Of course, this can't be stored in git!  I have this known secret stored on my local machine, and I seed it into an empty cluster with:
-
-```
-$ oc apply -k sealed-secrets-namespace
-```
-
+After a few minutes, you will have an instance of Argo CD in the new `openshift-gitops` namespace.  This is a special instance of Argo CD that is meant for Cluster Admins.  For developer GitOps workflows it is recommended to install another instance of Argo CD in a different namespace (still using this operator).  However, if you would like to use the default Argo CD instance in `openshift-gitops` for developer workflows as well, that's fine too!
