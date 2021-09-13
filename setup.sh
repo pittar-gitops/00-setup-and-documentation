@@ -1,12 +1,14 @@
 #!/bin/bash
 
 LANG=C
-SLEEP_SECONDS=60
+SLEEP_SECONDS=120
 
 echo ""
 echo "Installing OpenShift GitOps Operator."
 
 oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable?ref=main
+
+echo "Waiting $SLEEP_SECONDS for GitOps Operator to install."
 
 sleep $SLEEP_SECONDS
 
