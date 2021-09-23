@@ -6,6 +6,8 @@ spec:
       tls:
         termination: edge
         insecureEdgeTerminationPolicy: Redirect
+  dex:
+    openShiftOAuth: true
   resourceCustomizations: |
     bitnami.com/SealedSecret:
       health.lua: |
