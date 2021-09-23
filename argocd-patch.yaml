@@ -110,5 +110,7 @@ spec:
       kinds:
       - TaskRun
   rbac:
-    defaultPolicy: role:admin
-
+    defaultPolicy: role:readonly
+    policy: |
+      g, openshift-gitops-admins, role:admin
+    scopes: "[groups]"
