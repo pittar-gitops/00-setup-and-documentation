@@ -88,7 +88,7 @@ spec:
         hs.message = "Waiting for Job to complete."
         return hs
     platform.stackrox.io/Central:
-        health.lua: |
+      health.lua: |
         hs = {}
         if obj.status ~= nil and obj.status.conditions ~= nil then
             for i, condition in ipairs(obj.status.conditions) do
@@ -102,3 +102,11 @@ spec:
         hs.status = "Progressing"
         hs.message = "Waiting for Central to deploy."
         return hs
+  resourceExclusions: |
+    - apiGroups:
+      - tekton.dev
+      clusters:
+      - '*'
+      kinds:
+      - TaskRun
+
