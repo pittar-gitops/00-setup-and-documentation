@@ -109,4 +109,6 @@ spec:
       - '*'
       kinds:
       - TaskRun
+  rbac:
+    defaultPolicy: role:admin
 
