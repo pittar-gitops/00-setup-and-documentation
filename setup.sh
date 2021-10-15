@@ -6,8 +6,8 @@ SLEEP_SECONDS=120
 echo ""
 echo "Installing OpenShift GitOps Operator."
 
-#oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable?ref=main
-oc apply -k https://github.com/pittar/gitops-catalog/openshift-gitops-operator/overlays/stable-dex?ref=openshift-gitops-dex
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable?ref=main
+#oc apply -k https://github.com/pittar/gitops-catalog/openshift-gitops-operator/overlays/stable-dex?ref=openshift-gitops-dex
 
 echo "Waiting $SLEEP_SECONDS for GitOps Operator to install."
 
