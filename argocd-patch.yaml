@@ -65,7 +65,7 @@ spec:
           end
         end
         hs.status = "Progressing"
-        hs.message = "Waiting for certificate"
+        hs.message = "Waiting."
         return hs
     Job:
       health.lua: |
