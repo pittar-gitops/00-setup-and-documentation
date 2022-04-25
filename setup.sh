@@ -6,8 +6,7 @@ SLEEP_SECONDS=120
 echo ""
 echo "Installing OpenShift GitOps Operator."
 
-oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/stable?ref=main
-#oc apply -k https://github.com/pittar/gitops-catalog/openshift-gitops-operator/overlays/stable-dex?ref=openshift-gitops-dex
+oc apply -k https://github.com/redhat-cop/gitops-catalog/openshift-gitops-operator/overlays/gitops-1.5?ref=main
 
 echo "Waiting $SLEEP_SECONDS for GitOps Operator to install."
 
@@ -23,9 +22,5 @@ oc patch argocd openshift-gitops -n openshift-gitops \
     --type='merge' \
     --patch "$(cat argocd-patch.yaml)"
 
-echo "Printing default admin Argo CD password:"
-
-echo `oc get secret openshift-gitops-cluster \
-    -n openshift-gitops \
-    -o jsonpath='{.data.admin\.password}' | base64 -d`
+echo "Done. Please wait for the Argo CD Operator to rollout the patch update."
 

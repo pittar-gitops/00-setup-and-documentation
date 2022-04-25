@@ -16,15 +16,17 @@ This demo uses [Bitnami Sealed Secrets](https://github.com/bitnami-labs/sealed-s
 
 The following describes the process to take a new (empty) cluster and fully configure it, as well as build and deploy the tenant environments and applications.
 
-### 1. Setup: Deploy and Configure OpenShift GitOps Operator
+The steps involved in configuring the cluster are broken into a number of repositories - each to be managed by a different team or "tenant".  These are:
 
-A new OpenShift cluster does not have GitOps tooling installed by default - you have to install the OpenShift GitOps operator to deploy this functionality.  In order to install this operator and apply some custom configuration (edge-terminated TLS for the route, custom resource configuration for Argo CD), do the following:
+* Initial Cluster Configuration
+* Cluster-wide Configuration
+* Tenant: DevOpos Tooling
+* Tenant: PetClinic Project Team
+* Tenant: Contoso University Project Team
+* Tenant: Game of Life Project Team
+* Tenant: Harry Potter Magic Projec Team
 
-1. Login to your cluster with `oc` as a *cluster-admin*
-2. Run `./setup.sh`
 
-
-After a few minutes, you will have an instance of Argo CD in the new `openshift-gitops` namespace.  This is a special instance of Argo CD that is meant for Cluster Admins.  This instance of Argo CD will be used to configure the cluster, install more Operators, and create "tenant" namespaces.
 
 ### 2. Cluster Configuration and Tenant Management
 
